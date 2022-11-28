@@ -1,23 +1,23 @@
 import { useState } from "react";
 import classifyImage from "../api/classifyImage";
 import { useNavigate } from "react-router-dom";
+import emailContact from "../api/emailContact";
 
 function AiForm() {
     const [image, setImage] = useState('');
-    const [name, setName] = useState(null);
-    const [email, setEmail] = useState(null);
-    const [phone, setPhone] = useState(null);
-    const [address, setAddress] = useState(null);
-    const [city, setCity] = useState(null);
-    const [state, setState] = useState(null);
-    const [zip, setZip] = useState(null);
-    const [message, setMessage] = useState(null);
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [phone, setPhone] = useState('');
+    const [address, setAddress] = useState('');
+    const [city, setCity] = useState('');
+    const [state, setState] = useState('');
+    const [zip, setZip] = useState('');
     const navigate = useNavigate();
 
     const encodeProbability = (classification) => {
         const type = classification.label;
         const element = classification.confidences.find(name => name.label === type);
-        const probability = element.confidence;
+        const probability = Math.round(element.confidence * 10000)/100
         const encode = encodeURIComponent(probability)
         return encode;
     }
@@ -27,8 +27,10 @@ function AiForm() {
         const classification = await classifyImage(image);
         const probability = encodeProbability(classification);
         if(classification.label === 'Termites') {
+            await emailContact({ name, email, phone, address, city, zip, state, targetType: 'Termites' });
             navigate('/termites?probability=' + probability);
         } else {
+            await emailContact({ name, email, phone, address, city, zip, state, targetType: 'Ants' });
             navigate('/ants?probability=' + probability);
         }
     };
@@ -68,7 +70,7 @@ function AiForm() {
                         <label className='block text-gray-700 text-md font-bold mb-2' htmlFor='name'>
                             Name
                         </label>
-                        <input className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline' id='name' type='text' />
+                        <input className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline' id='name' type='text' value={name} onChange={(e) => setName(e.target.value)}/>
                     </div>
                 </div>
                 <div className='flex flex-wrap mb-4'>
@@ -76,7 +78,7 @@ function AiForm() {
                         <label className='block text-gray-700 text-md font-bold mb-2' htmlFor='email'>
                             Email
                         </label>
-                        <input className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline' id='email' type='email' />
+                        <input className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline' id='email' type='email' value={email} onChange={(e) => setEmail(e.target.value)}/>
                     </div>
                 </div>
                 <div className='flex flex-wrap mb-4'>
@@ -84,7 +86,7 @@ function AiForm() {
                         <label className='block text-gray-700 text-md font-bold mb-2' htmlFor='phone'>
                             Phone
                         </label>
-                        <input className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline' id='phone' type='tel' />
+                        <input className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline' id='phone' type='tel' value={phone} onChange={(e) => setPhone(e.target.value)}/>
                     </div>
                 </div>
                 <div className='flex flex-wrap mb-4'>
@@ -92,7 +94,7 @@ function AiForm() {
                         <label className='block text-gray-700 text-md font-bold mb-2' htmlFor='address'>
                             Address
                         </label>
-                        <input className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline' id='address' type='text' />
+                        <input className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline' id='address' type='text' value={address} onChange={(e) => setAddress(e.target.value)} />
                     </div>
                 </div>
                 <div className='flex flex-wrap mb-4'>
@@ -100,7 +102,7 @@ function AiForm() {
                         <label className='block text-gray-700 text-md font-bold mb-2' htmlFor='city'>
                             City
                         </label>
-                        <input className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline' id='city' type='text' />
+                        <input className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline' id='city' type='text' value={city} onChange={(e) => setCity(e.target.value)} />
                     </div>
                 </div>
                 <div className='flex flex-wrap mb-4'>
@@ -108,7 +110,7 @@ function AiForm() {
                         <label className='block text-gray-700 text-md font-bold mb-2' htmlFor='state'>
                             State
                         </label>
-                        <input className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline' id='state' type='text' />
+                        <input className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline' id='state' type='text' value={state} onChange={(e) => setState(e.target.value)} />
                     </div>
                 </div>
                 <div className='flex flex-wrap mb-4'>
@@ -116,15 +118,7 @@ function AiForm() {
                         <label className='block text-gray-700 text-md font-bold mb-2' htmlFor='zip'>
                             Zip
                         </label>
-                        <input className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline' id='zip' type='text' />
-                    </div>
-                </div>
-                <div className='flex flex-wrap mb-4'>
-                    <div className='w-full'>
-                        <label className='block text-gray-700 text-md font-bold mb-2' htmlFor='message'>
-                            Message
-                        </label>
-                        <textarea className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline' id='message' type='text' />
+                        <input className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline' id='zip' type='text' value={zip} onChange={(e) => setZip(e.target.value)}/>
                     </div>
                 </div>
                 <div className='flex flex-wrap mb-4'>
