@@ -1,5 +1,6 @@
 import './App.css';
 import Termites from './pages/termites';
+import Ants from './pages/ants';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/home';
 
@@ -10,6 +11,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/termites" element={<Termites />} />
+          <Route path="/ants" element={<Ants />} />
           <Route path='*' element={<h1>404: Not Found</h1>} />
         </Routes>
       </Router>
