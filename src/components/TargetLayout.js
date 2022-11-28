@@ -6,6 +6,7 @@ import { useSearchParams } from "react-router-dom";
  
 function TargetLayout ({type, title, link, subheader, children}) {
     let [searchParams] = useSearchParams();
+    
     return (
         <div>
             <Header text='Termite or Pest Auto-Identifier'>
@@ -20,8 +21,8 @@ function TargetLayout ({type, title, link, subheader, children}) {
                             {children}
                         </div>
                     </div>
-                    <div className="mt-4 flex justify-center">
-                        <a href={link} className="text-white font-bold py-4 px-6 rounded text-lg" style={{'backgroundColor': '#75bc60'}}>Book an Estimate</a>
+                    <div className="mt-8 flex justify-center">
+                        <a href={link} className="text-white font-bold py-2 px-6 rounded text-lg" style={{'backgroundColor': '#75bc60'}}>Book an Estimate</a>
                     </div>
                 </section>
 

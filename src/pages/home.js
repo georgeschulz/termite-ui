@@ -29,16 +29,11 @@ function Home() {
                         </div>
                     </div>
                 </section>
-                <section className='flex justify-center flex-wrap py-12'>
-                    <H2>How to Tell the Difference?</H2>
-                    <Subheader>How to visually ID the difference between termites and ants (or take a picture below!)</Subheader>
-                    <img src={idPic} alt="A picture of a termite and an ant" className='w-1/2' />
-                </section>
-                <section>
+                <section className='mt-10'>
                     <H2>Help Me Identify My Pest</H2>
                     <div>
                         <div className='button flex justify-center py-2'>
-                            <button className={`bg-gray-300  font-bold py-2 px-4 rounded-l ${idType === 'ai' ? 'bg-cyan-700 text-white' : 'text-gray-700'}`} onClick={() => setIdType('ai')}>AI</button>
+                            <button className={`bg-gray-300  font-bold py-2 px-4 rounded-l ${idType === 'ai' ? 'bg-cyan-700 text-white' : 'text-gray-700'}`} onClick={() => setIdType('ai')}>Automatic</button>
                             <button className={`bg-gray-300  font-bold py-2 px-4 rounded-r ${idType === 'manual' ? 'bg-cyan-700 text-white' : 'text-gray-700'}`} onClick={() => setIdType('manual')}>Manual</button>
                         </div>
                         {idType === 'ai' ? <AiForm /> : <ManualForm />}
