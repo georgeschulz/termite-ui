@@ -1,9 +1,18 @@
+import TargetLayout from "../components/TargetLayout";
+
 function Ants() {
     return (
-        <div>
-            <h1>Ants</h1>
-            <p>Ants are a group of insects that have a colonized the world. They are small and can be found in almost every habitat on Earth. They are social insects that live in colonies with complex social structures. Ants have colonized every continent except Antarctica.</p>
-        </div>
+       <TargetLayout
+            type="ants"
+            title="Uh Oh! It looks like you have ants!"
+            link="https://www.bettertermite.com/ant-control/"
+            subheader="Here's how to eliminate pesky ants from your home!"
+       >
+            <p className="w-full">Ants are a common pest in Northern Virginia. They can be found in your home, in your yard, and even in your garden.</p>
+            <p className="w-full">Luckily, they are easy to remove using bimonthly exterior pest control services</p>
+            <p className="w-full">Want to book a free estimate? Sign up today and recieve 50% off your first service!</p>
+            <br /><br />
+       </TargetLayout>
     )
 }
 
