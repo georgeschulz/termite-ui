@@ -4,10 +4,10 @@ import H2 from './H2';
 
 function ManualForm() {
     return (
-        <div className="flex justify-center flex-wrap mt-10">
+        <div className="flex justify-center flex-wrap mt-10 px-4 mb-20">
             <H2>How to Tell the Difference?</H2>
             <Subheader>How to visually ID the difference between termites and ants (or take a picture below!)</Subheader>
-            <img src={idPic} alt="A termite and an ant" className='w-1/2' />
+            <img src={idPic} alt="A termite and an ant" className='lg:w-1/2' />
         </div>
     )   
 }

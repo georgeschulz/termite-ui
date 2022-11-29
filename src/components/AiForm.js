@@ -60,8 +60,8 @@ function AiForm() {
     };
 
     return (
-        <div className='flex justify-center'>
-            <form className='w-1/2 pt-2'>
+        <div className='flex justify-center pt-10'>
+            <form className='md:w-2/3 lg:w-1/2 pt-2 px-6'>
                 <Subheader>Upload a picture below. Our software can use image-recognition to tell you whether it's a termite or ant!</Subheader>
                 <div className='flex flex-wrap mb-4'>
                     <div className='w-full'>
