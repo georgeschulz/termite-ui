@@ -12,7 +12,7 @@ function Home() {
     return (
         <div>
             <Header text='Termite or Pest Auto-Identifier'>
-                <p className='text-white'>Find Out Whether That Pest You Found is an Ant or a Termite Eating Your Home</p>
+                <p className='text-white text-sm md:text-base'>Find Out Whether That Pest You Found is an Ant or a Termite Eating Your Home</p>
             </Header>
             <ContentContainer>
                 <section className='pt-12 md:px-16 lg:pt-12 lg:px-16'>

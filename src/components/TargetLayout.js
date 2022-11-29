@@ -6,18 +6,18 @@ import { useSearchParams } from "react-router-dom";
  
 function TargetLayout ({type, title, link, subheader, children}) {
     let [searchParams] = useSearchParams();
-    
+
     return (
         <div>
             <Header text='Termite or Pest Auto-Identifier'>
-                <p className='text-white'>{subheader}</p>
+                <p className='text-white text-sm md:text-base'>{subheader}</p>
             </Header>
             <ContentContainer>
-                <section className='pt-12 px-16'>
+                <section className='pt-12 px-8 lg:px-16'>
                     <H2>{title}</H2>
                     <Subheader>Probability you have {type}: {searchParams.get('probability')}%</Subheader>
                     <div className="justify-center flex mt-8">
-                        <div className="w-2/3 flex flex-wrap leading-8">
+                        <div className="lg:w-2/3 flex flex-wrap">
                             {children}
                         </div>
                     </div>
