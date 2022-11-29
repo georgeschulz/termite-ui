@@ -3,6 +3,8 @@ import classifyImage from "../api/classifyImage";
 import { useNavigate } from "react-router-dom";
 import emailContact from "../api/emailContact";
 import Subheader from "./Subheader";
+import { convertToBase64 } from "../helpers/covertToBase64";
+import { encodeProbability } from "../helpers/encodeProbability";
 
 function AiForm() {
     const [image, setImage] = useState('');
@@ -14,14 +16,6 @@ function AiForm() {
     const [state, setState] = useState('');
     const [zip, setZip] = useState('');
     const navigate = useNavigate();
-
-    const encodeProbability = (classification) => {
-        const type = classification.label;
-        const element = classification.confidences.find(name => name.label === type);
-        const probability = Math.round(element.confidence * 10000) / 100
-        const encode = encodeURIComponent(probability)
-        return encode;
-    }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -38,19 +32,6 @@ function AiForm() {
         } else {
             alert('Please fill out all fields!');
         }
-    };
-
-    const convertToBase64 = (file) => {
-        return new Promise((resolve, reject) => {
-            const fileReader = new FileReader();
-            fileReader.readAsDataURL(file);
-            fileReader.onload = () => {
-                resolve(fileReader.result);
-            };
-            fileReader.onerror = (error) => {
-                reject(error);
-            };
-        });
     };
 
     const handleUpload = async (e) => {
